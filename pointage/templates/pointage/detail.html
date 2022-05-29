@@ -1,0 +1,25 @@
+{% extends 'layout.html' %}
+
+{% block nav %}
+{% include 'pointage/_pointage.html' %}
+{% endblock %}
+{% block content %}
+
+
+hello detail
+<br>
+
+<br>
+<form action="" method="post">
+    {% csrf_token %}
+    {{pointageform}}
+<br>
+
+    {% for data in pointage.groupe.composition.all %}
+    <input type="checkbox" name="toto" value="{{data.pk}}">{{data.nom}} {{data.prenom}}<br>
+{% endfor %}
+    <input type="submit">
+</form>
+
+
+{% endblock %}

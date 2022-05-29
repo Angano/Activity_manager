@@ -1,0 +1,101 @@
+#header {
+    background-color:#3A5199;
+    color:white;
+}
+
+
+main, #nav1{
+    min-height: 76vh;
+}
+
+#contenu{
+    font-size: 0.95em;
+  
+   
+}
+legend{
+    text-decoration: underline;
+}
+
+#footer {
+    height:10vh;
+    background-color:#3A5199;
+    display: flex;
+    
+}
+
+#logo{
+    background-image: url(../images/logo.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: white;
+    width:14em;
+ 
+}
+
+#foot{
+    color: white;
+    margin: auto;
+ 
+  
+}
+
+#login{
+    background-image: url(../images/bg.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    background-color: #c1c1c1;
+    min-height: 75vh;
+}
+
+li .nav-link{
+    color:white;
+}
+
+li .nav-link:hover{
+    color:grey;
+}
+
+/* Bouton navigation */
+
+.menu{
+list-style-type: none;
+text-align:left;
+padding:0rem 0rem;
+}
+
+.menu li{
+list-style-type: none}
+
+.menu a{
+    text-decoration: none;
+}
+.menu-item{
+    padding:0.2em 0px;
+}
+
+.menu ul{
+    margin-bottom:2em;
+    padding-left:1em;
+}
+.menu hr{
+    margin:0.5rem 0;
+}
+.menu-items{
+    display:none;
+}
+.menu-item{
+    cursor: pointer;
+}
+.show{
+    display:block;
+}
+
+/* titre */
+.alert-secondary{
+    padding:0.2em;
+}
+.modal-dialog{
+    max-width:950px;
+}

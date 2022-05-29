@@ -1,0 +1,81 @@
+
+{% block content %}
+
+
+
+
+      <div class="pb-1">
+
+
+        <form action="" method="post" id="myForm2">
+            {% csrf_token %}
+            <div class="w-100 mx-auto mb-4 card-header d-flex justify-content-between">
+                <div>
+                    <span class="h3">{{pointage.activite.nom}}</span>
+                    <label class="ms-4" for="id_datepointage">Date de pointage <span>&#x1F5D3;</span></label>
+                    {{pointageform.datepointage}}
+                    {{pointageform.activite}}
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            {% with eleves=pointage.activite.composition.all %}
+            <div class="row col-md-10 mx-auto" >
+                  {% for eleve in eleves %}
+                <div class="col text-nowrap">
+                    {% if pointage.transfered %}
+                        <input   hidden type="checkbox" id="id_eleve{{eleve.pk}}" {% if eleve.pk in releve %} checked="checked" {% endif %} name="releve" value="{{ eleve.pk }}" >
+                        <input  type="checkbox" name="fake"  {% if eleve.pk in releve %} checked="checked" {% endif %} disabled   >
+                    {% else %}
+                        <input type="checkbox"  id="id_eleve{{eleve.pk}}" {% if eleve.pk in releve %} checked="checked" {% endif %} name="releve" value="{{ eleve.pk }}" >
+                        <input  type="checkbox"  hidden name="fake"  disabled >
+                    {% endif %}
+                    <label for="id_eleve{{eleve.pk}}">{{ eleve.nom}} {{eleve.prenom}}</label>
+                </div>
+
+            {% endfor %}
+
+            </div>
+
+            {% endwith %}
+
+                <div class="alert alert-warning {% if pointage.transfered %} d-block {% else %} d-none {% endif %} text-center" id="alert_pointage">Pointage déja transferé en comptablité</div>
+
+
+
+
+                <div class="mt-5 mx-auto {% if pointage.transfered %} d-none{% else %} d-flex {% endif %} justify-content-end" id="lop">
+                    <span class="btn btn-secondary mx-1" data-bs-dismiss="modal">Fermer</span>
+                    <input id="sous" class="btn btn-success mx-1 " type="submit" value="enregistrer">
+                </div>
+
+
+
+        </form>
+
+
+
+      </div>
+
+
+
+
+
+
+
+
+
+
+{% endblock %}
+
+{% load static %}
+
+{% block script %}
+<script src="{% static 'pointage/js/addPointage.js' %}"></script>
+{% endblock %}
+
+
+
+
+
+

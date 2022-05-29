@@ -1,0 +1,10 @@
+<form action="" method="post" id="saveForm" data-id_ligne="{{id_ligne}} " >
+    {% csrf_token %}
+    {{form}}
+    <input type="submit">
+    
+</form>
+
+<span id="trt" data-idbrouillon="{{brouillon.pk}}">{{brouillon.pk}}</span>
+
+<div id="titreHeader">toto</div>

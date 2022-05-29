@@ -1,0 +1,95 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block content %}
+<div id="main">
+	<div class="row ">
+	<fieldset>
+		<legend>Détail de la facture</legend>
+	</fieldset>
+	</div>
+	<div class="row">
+		<div class="col-md-10 mx-auto d-flex justify-content-around">
+			<b>Facture : <mark>Fc_{{object.num_piece}}</mark></b>
+			<b>Date : {{object.date_facture}}</b>
+			<p><b>Client : </b> {{ object.client.nom}}</p>
+		</div>
+
+	</div>
+	<div class="row">
+		<div class="col-md-10 mx-auto">
+			<table class="table">
+				<thead>
+					<tr><th>Article</th><th>Description</th><th>Prix Unitaire</th><th>quantité</th><th>Total</th></tr>
+				</thead>
+				<tbody>
+
+					{% for boot in object.brouillon_origin.brouillon.all %}
+					<tr><td>{{boot.article.nom}}</td><td>{{boot.description}}</td><td>{{boot.prix}} €</td><td>{{boot.quantite}}</td><td>{{boot.total|floatformat:2}} €</td></tr>
+					{% endfor %}
+
+				</tbody>
+				<tfoot><tr><th colspan="3"></th><th>Total:</th><th>{{object.total|floatformat:2}} <b>€</b></th></tr></tfoot>
+			</table>
+
+
+
+
+
+
+
+		</div>
+	</div>
+	<div class="row">
+
+		<div class="col-md-8 mx-auto border border-secondary rounded p-4">
+			<form action="" method="post" id="factureForm" name="facture" data-id_facture="{{object.pk}}">
+				{% csrf_token %}
+				<div class=" d-flex justify-content-between">
+					<div class="form-group">
+						{{form.solder.errors}}
+						<label for="id_solder">{{form.solder.label}}</label>
+						{{form.solder}}
+
+					</div>
+					<div class="form-group">
+						{{form.note.errors}}
+						<label for="id_note">{{form.note.label}}</label>
+						{{form.note}}
+				</div>
+					<div class="form-group">
+						{{form.date_solde.errors}}
+						<label for="id_date_solde">{{form.date_solde.label}}</label>
+						{{form.date_solde}}
+				</div>
+
+				</div>
+
+				<div class="row form-group">
+					<div class="col-md-6 mx-auto mt-3">
+						<input type="submit" class="btn btn-success btn-sm form-control" value="Mettre à jour">
+					</div>
+
+				</div>
+
+			</form>
+		</div>
+
+	</div>
+</div>
+
+
+{% endblock %}
+{% block script%}
+    <script>
+
+		// Date picker
+$( "#id_date_solde" ).datepicker({
+   onSelect:function(dateText,object){
+   dateText = dateText.split('-')[1]+'-'+dateText.split('-')[0];
+   },
+   dateFormat: "yy-mm-dd",
+   })
+
+	</script>
+
+{% endblock %}

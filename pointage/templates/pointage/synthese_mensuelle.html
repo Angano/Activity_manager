@@ -1,0 +1,60 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'pointage/css/style.css' %}" type="text/css">
+{% endblock %}
+
+{% block content %}
+
+
+<div class="row alert alert-secondary">
+    <div class="row">
+         <div class="col-md-8 ">
+            <b>Synthèse mensuelle : {{activite.nom}}</b>
+
+         </div>
+        <div class="col-md-4">
+            <h6><span class="badge bg-warning text-dark">x</span> Pointage passé en facturation </h6>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <label for="TextBox1"> Période de pointage: </label><input type="text" id="TextBox1">
+        </div>
+
+    </div>
+</div>
+
+{% csrf_token %}
+<div id="synthese_resultat">
+    <table class="table" id="table_resultat">
+    <thead>
+        <tr><th>Nom élève</th>
+            {% for pointage in pointages %}
+            <th class="small">{{pointage.datepointage|date:'d-M'}}</th>
+
+{% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+    {%for eleve in eleves %}
+        <tr><th class="small">{{eleve.nom}} {{ eleve.prenom}}</th>
+        {% for pointage in pointages %}
+            <th {% if pointage.transfered%}class="bg-warning"{% endif %}>{% if eleve.pk|stringformat:"i" in pointage.releve %}x{% endif %}</th>
+            {% endfor %}
+        </tr>
+    {% endfor%}
+    </tbody>
+</table>
+
+
+</div>
+</div>
+{% endblock %}
+{% block script%}
+
+    <script type="text/javascript" src=" {% static 'jquery/month_picker/MonthPicker.js' %}"></script>
+    <script type="text/javascript" src="{% static 'pointage/js/synthese_mensuelle.js'%}"></script>
+
+{% endblock %}
+

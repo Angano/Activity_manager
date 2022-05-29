@@ -1,0 +1,79 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        <div class="card">
+            <div class="card-header">
+                <h5>Ajout d'un parent</h5>
+            </div>
+                   <form class=" flex" action="" method="post" id="parentForm" data-parent="{{parent.pk}}">
+          <div class="row mx-2">
+                {% csrf_token %}
+
+                <div class="col-md-6">
+                    {{form.nom.errors}}
+                    <label for="id_nom" class="form-label">{{form.nom.label}} </label>
+                    {{form.nom}}
+                </div>
+                <div class="col-md-6">
+                    {{form.prenom.errors}}
+                    <label for="id_prenom" class="form-label">{{form.prenom.label}} </label>
+                    {{form.prenom}}
+                </div>
+            </div>
+          <div class="row mx-2">
+                <div class="col-md-6">
+                    {{form.telephone.errors}}
+                    <label for="id_nom" class="form-label">{{form.telephone.label}} </label>
+                    {{form.telephone}}
+                </div>
+                <div class="col-md-6">
+                    {{form.email.errors}}
+                    <label for="id_prenom" class="form-label">{{form.email.label}} </label>
+                    {{form.email}}
+                </div>
+            </div>
+          <div class="row mx-2">
+                <div class="col-md-12">
+                    {{form.adresse.errors}}
+                    <label for="id_adresse" class="form-label">{{form.adresse.label}} </label>
+                    {{form.adresse}}
+                </div>
+          </div>
+          <div class="row mx-2">
+                <div class="col-md-4">
+                    {{form.code_postal.errors}}
+                    <label for="id_code_postal" class="form-label">{{form.code_postal.label}} </label>
+                    {{form.code_postal}}
+                </div>
+
+                <div class="col-md-6">
+                    {{form.ville.errors}}
+                    <label for="id_ville" class="form-label">{{form.ville.label}} </label>
+                    {{form.ville}}
+                </div>
+          </div>
+          <div class="row mx-2 py-2 ">
+              <div class="col-md-10 mx-auto d-flex justify-content-end">
+
+
+                   <input class="btn btn-primary mx-1" type="submit" value="Enregistrer">
+
+              </div>
+          </div>
+      </form>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+
+
+
+{% endblock %}

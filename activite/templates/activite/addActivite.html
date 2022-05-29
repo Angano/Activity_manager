@@ -1,0 +1,25 @@
+{% extends 'layout.html' %}
+
+{% block nav %}
+{% include 'activite/_activite.html' %}
+{% endblock %}
+{% block content %}
+
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        <form action="" method="post">
+            {% csrf_token %}
+            <p>{{form.nom}}</p>
+            <p>{{form.description}}</p>
+            <p>{{form.pointage_type}}</p>
+            <p>{{form.prix}}</p>
+
+
+            <input type="submit">
+        </form>
+        
+    </div>
+
+</div>
+
+{% endblock %}

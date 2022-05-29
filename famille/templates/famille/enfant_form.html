@@ -1,0 +1,65 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<div class="row" id="eleve">
+    <div class="col-md-12 mx-auto">
+        <form action="" method="post" id="eleveForm" data-eleve="{{enfant.pk}}">
+            {% csrf_token %}
+            <div class="row flex-row pb-4">
+                <div class="col-md-6">
+                    {{form.nom.errors}}
+                    {{form.nom.label}}
+                    {{form.nom}}
+
+                </div>
+                <div class="col-md-6">
+                    {{form.prenom.errors}}
+                    {{form.prenom.label}}
+                    {{form.prenom}}
+                </div>
+
+
+            </div>
+            <div class=" row flex-row pb-4">
+                <div class="col-md-6">
+                <div>
+                    <label for="saisieParent1" class="form-label">Parent 1 : </label>
+                    {{form.parent1.errors}}
+                    <input  type="hidden" id="parent1" name="parent1">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" >Search</span>
+                        <input  required autocomplete="off" type="text" class="form-control" id="saisieParent1" value="{{object.parent1.nom}} {{object.parent1.prenom}}">
+                        <span class="input-group-text reset" >X</span>
+                    </div>
+
+                <div  id="resultat1"></div>
+                </div>
+
+            </div>
+                <div class="col-md-6">
+                <div>
+                    <label for="saisieParent2" class="form-label">Parent 2 </label>
+                    {{form.parent2.errors}}
+                    <input  type="hidden" id="parent2" name="parent2" >
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" >Search</span>
+                        <input required autocomplete="off" type="text" class="form-control" id="saisieParent2" value="{{object.parent2.nom}} {{object.parent2.prenom}}">
+                        <span class="input-group-text reset" >X</span>
+                    </div>
+                    <div  id="resultat2"></div>
+                </div>
+            </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8 mx-auto text-center">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                    <input type="submit" class="btn btn-primary " value="Mettre à jour">
+                </div>
+
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

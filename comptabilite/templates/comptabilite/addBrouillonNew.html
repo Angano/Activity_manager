@@ -1,0 +1,108 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+
+{% block content %}
+ <link rel="stylesheet" href="{% static 'comptabilite/style.css' %}" type="text/css">
+<div class="row">
+    <div class="col-md-12 alert alert-secondary">
+        <h3>Ajouter un brouillon</h3>
+    </div>
+</div>
+
+<form action="" method="post" id="monFormulaire">
+    {% csrf_token %}
+            <div class="row mb-1 justify-content-center ">
+                <div class="col-md-4">
+                    <div class="d-flex">
+                        <span class="input-group-text">Date du brouillon: </span>
+                        {{brouillonform.date_brouillon.errors}}{{brouillonform.date_brouillon}}
+                    </div>
+                </div>
+                <div class="col-md-5 ">
+                    <div class="d-flex">
+                        <span class="input-group-text">Client: </span>
+                        <input class="form-control " name="client" hidden type="text" id="resultatClient" required value="">
+                        <input required type="text" class="form-control"  id="client" value="" autocomplete="off">
+                        <span class="btn btn-secondary btn-sm input-group-text" id="erase" style="margin-left:-1.5rem">X</span>
+                    </div>
+                    <div id="resultatParent"></div>
+
+                </div>
+            </div>
+            <div class="row draft">
+            <div class="col-md-11 mx-auto card py-3 mb-4">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Activité</th>
+                            <th>Description</th>
+                            <th>Prix</th>
+                            <th>quantité</th>
+                            <th>Total</th>
+
+                        </tr>
+                    </thead>
+                    <tbody id="tbody">
+                    </tbody>
+                    <tfoot >
+
+                    <tr>
+                        <th colspan="4">
+                        </th>
+                        <th colspan="2">Total:<span id="totalFacture">0</span> {{brouillonform.total}} €</th>
+                    </tr>
+
+                    </tfoot>
+
+                </table>
+
+            </div>
+        </div>
+            <div class="row draft">
+                <div class="col-md-12 text-center mb-3">
+                   <input id="yclick" type="submit" class="btn btn-success btn " value="Enregistrer le brouillon">
+                </div>
+            </div><div class="row mt-4">
+                <div class="col-md-11 mx-auto card p-2">
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th class="text-muted"><u>Ajouter une activité</u></th>
+                                <th class="text-muted">Description</th>
+                                <th class="text-muted">Prix</th>
+                                <th class="text-muted">Quantité</th>
+                                <th class="text-muted">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                          <tr id="add-ligne">
+                                <td class="d-flex">
+                                    <input type="hidden" id="id_article" name="article">
+                                    <div id="resultatNom"></div>
+                                    <input autocomplete="off" class="form-control" type="text" id="id_nom" name="" placeholder="Activite">
+                                    <span id="reset" class="btn btn-secondary btn-sm input-group-text" style="margin-left:-1.5rem">X</span>
+                                </td>
+                                <td style="width:15rem;">{{ligneform.description.errors}}{{ligneform.description}}</td>
+                                <td style="width:7rem;">{{ligneform.prix.errors}}{{ligneform.prix}}</td>
+                                <td style="width:7rem;">{{ligneform.quantite.errors}}{{ligneform.quantite}}</td>
+                                <td style="width:7rem;">{{ligneform.total.errors}}{{ligneform.total}}</td>
+                                <td style="width:2rem;">
+                                    <span class=" btn btn-primary "  id="ajouter" >Ajouter</span>
+
+                                </td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+</form>
+{% endblock %}
+{% block script%}
+    <script src="{% static 'comptabilite/addbrouillon.js' %}"></script>
+
+{% endblock %}

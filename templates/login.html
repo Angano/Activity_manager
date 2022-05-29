@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="fr">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}" type="text/css">
+    <link href="{% static 'css/main.css'%}" type="text/css" rel="stylesheet">
+
+
+    <title>Services Manager</title>
+</head>
+<body>
+    <main class="container-fluid" >
+       <div class="row" id="header">
+            <div class="col-md-4 py-3 px-0 me-5" id="logo">
+
+            </div>
+            <div class="col-md-8 py-3">
+                <div class="fs-5">
+                    <b>Services Manager</b>
+                    <div style="font-size:1rem"> La gesion des services scolaires simplifiée !</div>
+                </div>
+            </div>
+       </div>
+        <div class="row" id="login" >
+            <div class="col-md-3 offset-md-4 ">
+                <form class="jumbotron alert alert-light" style="padding:2rem; margin:auto ; margin-top:1em" method="post" action="">
+                {% csrf_token %}
+
+                    <div class="form-group row">
+                        {{form.username.label}}
+
+                            {{form.username}}
+
+                    </div>
+                    <div class="form-group row">
+                       {{form.password.label}}
+
+                            {{form.password}}
+
+                    </div>
+                    <div class="form-group row">
+                        <a href="/resetpassword">Mot de passe oublié</a>
+                        <button type="submit" class="btn btn-primary mx-auto">Connexion</button>
+                    </div>
+
+
+            </form>
+
+
+            </div>
+
+        </div>
+
+        <div class="row" id="footer">
+            <div class="col-12 text-center" id="foot">
+            Qui sommes nous? Nous contacter
+            </div>
+        </div>
+
+
+    </main>
+
+
+</body>
+</html> 

@@ -1,0 +1,69 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="row">
+        <div class="alert alert-secondary" role="alert">
+            <h3>Ajout d'un élève</h3>
+        </div>
+    </div>
+        <form action="" method="post" class="row  w-75 mx-auto my-3 border border-primary rounded" id="eleve">
+            {% csrf_token %}
+            <div class="row flex-row pb-4">
+                <div class="col-md-6">
+                    {{form.nom.errors}}
+                    {{form.nom.label}}
+                    {{form.nom}}
+
+                </div>
+                <div class="col-md-6">
+                    {{form.prenom.errors}}
+                    {{form.prenom.label}}
+                    {{form.prenom}}
+                </div>
+
+
+            </div>
+            <div class=" row flex-row pb-4">
+                <div class="col-md-6">
+                <div>
+                    <label for="saisieParent1" class="form-label">Parent 1 : </label>
+                    {{form.parent1.errors}}
+                    <input  type="hidden" id="parent1" name="parent1">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" >Search</span>
+                        <input  required autocomplete="off" type="text" class="form-control" id="saisieParent1" value="{{object.parent1.nom}} {{object.parent1.prenom}}">
+                        <span class="input-group-text reset" >X</span>
+                    </div>
+
+                <div  id="resultat1"></div>
+                </div>
+
+            </div>
+                <div class="col-md-6">
+                <div>
+                    <label for="saisieParent2" class="form-label">Parent 2 </label>
+                    {{form.parent2.errors}}
+                    <input  type="hidden" id="parent2" name="parent2" >
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" >Search</span>
+                        <input required autocomplete="off" type="text" class="form-control" id="saisieParent2" value="{{object.parent2.nom}} {{object.parent2.prenom}}">
+                        <span class="input-group-text reset" >X</span>
+                    </div>
+                    <div  id="resultat2"></div>
+                </div>
+            </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8 mx-auto text-center py-2">
+                    <input type="submit" class="btn btn-primary " value="Enregistrer">
+                </div>
+
+            </div>
+        </form>
+{% endblock %}
+
+{% block script %}
+<script src=" {% static 'famille/js.js'%}"></script>
+
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'layout.html' %}
+
+
+{% block content %}
+
+<div class="card mb-3" style="max-width: 540px;" id="eleve">
+  <div class="row g-0">
+    <div class="col-md-4">
+      <img src="..." alt="...">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title">Détail de {{enfant.nom}} {{enfant.prenom}}</h5>
+          <div>
+              <div>Fratrie</div>
+              {% for frere in fratrie %}
+            <p class="card-text">{{frere.prenom}}</p>
+          {% endfor %}
+          </div>
+
+
+        <p class="card-text"><small class="text-muted"><a href="{% url 'famille:update_eleve' pk=enfant.pk %}">update</a></small></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}

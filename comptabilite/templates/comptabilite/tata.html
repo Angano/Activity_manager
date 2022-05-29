@@ -1,0 +1,77 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block content %}
+<h5>Edit brouillon</h5>
+
+
+
+
+
+
+
+
+
+<div id="tity" class="d-flex justify-content-between w-100">
+
+        <div><b>Nom: </b>{{brouillon.client.nom}}</div>
+
+        <div><b>Date brouillon:</b> {{brouillon.date_brouillon}}</div>
+        <div><b>Num piece:</b> {{brouillon.num_piece}}</div>
+
+
+</div>
+<div id="table">
+<div class="row">
+    <div class="col-md-12">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Activite</th>
+                    <th>Description</th>
+                    <th>Prix unitaite</th>
+                    <th>Quantité</th>
+                    <th>Total</th>
+                    <th><span class="bg-warning" id="trt" data-idbrouillon="{{brouillon.pk}}">{{brouillon.pk}}</span></th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for ligne in lignes %}
+            <tr>
+                <td>{{ligne.article.nom}}</td>
+                <td> {{ligne.description}} </td>
+                <td>{{ligne.prix}}</td>
+                <td>{{ligne.quantite}}</td>
+                <td>{{ligne.total|floatformat:2}}</td>
+                <td>
+                    <span class="btn btn-primary btn-sm edit_ligne" data-bs-toggle="modal" data-bs-target="#exampleModal" data-id_ligne="{{ligne.pk}} ">!</span>
+                    <span class="btn btn-danger btn-sm dd" data-brouillon="{{brouillon.pk}}" data-id="{{ligne.pk}}">X</span>
+                    </td>
+                </tr>
+            {%endfor%}
+
+            </tbody>
+            <tbody>
+            <tr>
+                <th colspan="4"></th>
+                <th>Total: {{brouillon.total|floatformat:2}} <b>€</b></th>
+
+            </tr>
+            </tbody>
+
+
+        </table>
+    </div>
+</div>
+
+</div>
+
+
+
+
+{% endblock %}
+
+{% block script%}
+<script src="{% static 'comptabilite/tata.js' %}"></script>
+{% endblock %}
+
+

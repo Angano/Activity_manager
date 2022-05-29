@@ -1,0 +1,118 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block nav %}
+	{% include 'comptabilite/_facturation.html' %}
+{% endblock %}
+{% block content %}
+{% csrf_token %}
+<!-- brouillons.html #headerForModal -->
+<div class="row" id="headerForModal">
+		<div class="col-md-12 py-2   d-flex justify-content-between align-items-center ">
+			<div>
+				<legend>Détail:</legend>
+			</div>
+			<div>
+				<b>Brouillon : </b>Br_<span id="idbrouillon" data-idbrouillon="{{object.pk}}">{{object.num_piece}} </span>
+			</div>
+
+			<div>
+				<b>Client : </b> {{ object.client.nom}}
+			</div>
+			<div>
+				<b>Date: </b>{{object.date_brouillon}}
+			</div>
+
+
+		</div>
+	</div>
+<!-- brouillons.html #id -->
+<div id="content" class="mx-4">
+	<div class="row">
+		<div id="ligneForm" class="mb-4">
+			<div class="row">
+				<div class="col-md-12">
+					<u>Ajouter une ligne</u>
+				</div>
+			</div>
+			<form action="" method="post" id="myForm" name="myForm">
+				{% csrf_token %}
+
+				<div class="col-md-12 d-flex justify-content-between mx-auto" id="addLigne">
+
+					<div>
+						{{ligneForm.brouillon}}
+						{{ligneForm.article}}
+						<div class="d-flex">
+							<input type="text" id="searchActivite" value="" class="form-control " placeholder="Activité" autocomplete="off">
+							<span id="clear" class="btn btn-secondary btn-sm">X</span>
+						</div>
+
+						<div id="resultatActivite"></div>
+					</div>
+					<div style="width:15rem;">{{ligneForm.description}}</div>
+					<div style="width:7rem;">{{ligneForm.prix}}</div>
+					<div style="width:7rem;">
+						{{ligneForm.quantite}}
+					</div>
+					<div style="width:7rem;">
+						{{ligneForm.total}}
+					</div>
+
+					<div>
+						<input type="submit" id="up" class=" btn btn-success btn-sm " title="Ajouter une ligne" value="Ajouter">
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12 bg-light rounded py-1 mt-1" >
+			<table class="table" id="tableBrouillon">
+						<thead>
+							<tr>
+								<th>Article</th><th>Description</th><th>Prix uni</th><th>Qté</th><th>Total</th><th></th></tr>
+						</thead>
+						<tbody>
+
+							{% for boot in object.brouillon.all %}
+							<tr data-idligne="{{boot.pk}}" style="position:relative;z-index:0">
+								<td data-article="nom">{{boot.article.nom}}</td>
+								<td data-article="description" style="width:15rem;">{{boot.description}}</td>
+								<td data-article="prix" style="width:7rem;">{{boot.prix|floatformat:2}}</td>
+								<td data-article="quantite"  style="width:7rem;">{{boot.quantite|floatformat:2}}</td>
+								<td data-article="total"  style="width:7rem;">{{boot.total|floatformat:2}}</td>
+								<td> <span class="del badge bg-secondary btn">X</span></td>
+							</tr>
+							{% endfor %}
+						</tbody>
+						<tfoot>
+							<tr>
+								<th>
+
+								</th>
+								<th colspan="3"></th>
+								<th>Total: <span id="totalFacture">{{object.total|floatformat:2}} </span></th>
+								<th><b>€</b></th>
+							</tr>
+						</tfoot>
+					</table>
+		</div>
+	</div>
+
+	<div class="row modal-footer">
+			<div class="col-md-4 d-flex justify-content-center offset-md-8 mt-2 ">
+				<button type="button" class="btn btn-secondary btn-sm mx-2 buttonClose" data-bs-dismiss="modal">Fermer</button>
+				<form action="{% url 'comptabilite:brouillons' %}" method="post">
+					{% csrf_token %}
+					<input type="hidden" name="brouillons" value="{{object.pk}}">
+					<button class="btn btn-warning btn-sm" id="buttonTransfered">Transférer en facturation</button>
+				</form>
+
+			</div>
+
+		</div>
+
+</div>
+
+{% endblock %}
+

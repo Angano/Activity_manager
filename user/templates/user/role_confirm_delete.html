@@ -1,0 +1,24 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        <div class="card">
+            <div class="card-header">Suppression d'un rôle</div>
+            <div class="card-body">
+
+            <form action="" method="post" >
+                <div class="card-body">
+                    {% csrf_token %}
+                    <p class="card-text">Rôle: {{object.nom}}</p>
+                    <p class="card-text">Description: {{object.description}}</p>
+
+                        <input type="submit" class="btn btn-primary btn-sm" value="Supprimer">
+                    </div>
+
+        </form>
+        </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

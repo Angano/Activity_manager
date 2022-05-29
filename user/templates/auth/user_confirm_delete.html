@@ -1,0 +1,19 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        <form action="" method="post">
+            <div class="alert alert-warning">confirmez la suppression de :</div>
+            {% csrf_token %}
+            <p>Pseudo: {{ object.username }}</p>
+            <p>Prénom: {{ object.first_name }}</p>
+            <p>Nom: {{ object.last_name }}</p>
+            <p>Email: {{ object.email }}</p>
+
+            <input type="submit"  class="btn btn-danger btn-sm" value="Confirmez">
+        </form>
+    </div>
+</div>
+{% endblock %}

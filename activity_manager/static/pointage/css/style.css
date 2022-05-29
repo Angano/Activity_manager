@@ -1,0 +1,19 @@
+.hasDatepicker{
+    width:7rem;
+    }
+
+#MonthPicker_TextBox1{
+    width:max-content;
+    text-align:center;
+    position:absolute;
+
+}
+
+.month-picker-month-table{
+    width:max-content;
+    text-align:center;
+    margin:auto;
+}
+#TextBox1{
+    width:5em;
+}

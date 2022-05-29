@@ -1,0 +1,44 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8 mx-auto">
+       <div class="modal-content" id="modal-body">
+  <form action="" method="post" id="myRoleForm" data-role="{{role.pk}}">
+      <div class="modal-header bg-light">
+        <h5 class="modal-title" id="exampleModalLabel">{{titre}}</h5>
+
+          {% if edition == True %}
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          {% endif %}
+      </div>
+      <div class="modal-body">
+
+
+                {% csrf_token %}
+                    {{form}}
+
+
+      </div>
+      <div class="modal-footer">
+          {% if edition == True %}
+          <button data-bs-dismiss="modal" class="btn btn-secondary btn-sm" >
+              Fermer
+          </button>
+          {% endif %}
+          <div>
+              <input class="btn btn-primary" type="submit" value="{{submit}}">
+
+          </div>
+      </div>
+
+
+
+</form>
+
+</div>
+    </div>
+</div>
+
+
+{% endblock %}

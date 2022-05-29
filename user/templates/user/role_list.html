@@ -1,0 +1,55 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block content %}
+<div class="row ">
+    <div class="col-md-12 mx-auto alert alert-secondary ">
+       <h3>Liste des rôles</h3>
+    </div>
+</div>
+<div class="row" id="role">
+    <div class="col-md-8 mx-auto pt-2">
+        <table class="table" id="table">
+            <thead>
+            <tr>
+                <th>Role</th>
+                <th>Description</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for data in object_list %}
+            <tr>
+                <td>{{data.nom}}</td>
+                <td>{{data.description}}</td>
+                <td>
+                    <a class="btn btn-primary btn-sm" href="{% url 'user:edit_role' pk=data.pk %}" data-bs-toggle="modal" data-bs-target="#exampleModal">Edit</a>
+                    <a class="btn btn-danger btn-sm" href="{% url 'user:role_delete' pk=data.pk %}">Delete</a>
+                </td>
+            </tr>
+            {% endfor%}
+            </tbody>
+
+        </table>
+
+    </div>
+    <!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" id="modal-dialog">
+
+
+  </div>
+</div>
+</div>
+
+
+
+
+
+
+{% endblock %}
+{% block script %}
+<script src="{% static 'user/js.js' %} ">
+
+</script>
+{% endblock %}

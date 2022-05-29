@@ -1,0 +1,28 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        <div class="card">
+            <form action="" method="post">
+            <div class="card-header"><h4>confirmez la suppression de l'activité suivante :</h4></div>
+                <div class="card-body">
+                     {% csrf_token %}
+                    <p class="card-text">Nom: {{ object.nom }}</p>
+                    <p class="card-text">Description: {{ object.description }}</p>
+
+                </div>
+                <div class="card-footer text-center">
+                    <input type="submit" class="btn btn-danger btn-sm" value="Confirmez">
+                </div>
+
+
+
+        </form>
+
+
+        </div>
+
+    </div>
+</div>
+{% endblock %}

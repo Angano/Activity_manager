@@ -1,0 +1,78 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block nav %}
+{% include 'pointage/_pointage.html' %}
+{% endblock %}
+{% block content %}
+
+
+<div class="row ">
+    <div class="col-md-12 mx-auto">
+       <h3 class="alert alert-secondary">Les activités que je peux pointer</h3>
+
+    </div>
+
+
+
+
+
+
+
+
+</div>
+<div class="row row-cols-1 row-cols-md-4 g-4">
+{% for activite in activites %}
+
+
+  <div class="col">
+    <div class="card h-100">
+        <div class="card-header">{{activite.nom}}</div>
+        <div class="card-body">
+            <h5 class="card-title">
+
+        </h5>
+
+        <p class="text-muted">{{activite.description}}</p>
+            <div class="d-flex justify-content-between text">
+                <div>
+                    {{activite.prix}} <b>€</b>
+                </div>
+                <div>
+                    {{activite.composition.count}} inscrits
+                </div></div>
+            <p class="text-muted"></p>
+        <a href="{% url 'pointage:getPointage' pk=activite.pk %}" class="modalPointage card-link" data-bs-toggle="modal" data-bs-target="#exampleModal">Pointage</a>
+        <a href="{% url 'pointage:synthese_mensuelle' pk=activite.pk %}" target="_blank" class="card-link">Synthèse</a>
+
+        </div>
+
+
+    </div>
+  </div>
+
+            {% endfor %}
+
+
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}
+{% block script %}
+<script src="{% static 'pointage/js/js.js' %}"></script>
+<script type="text/javascript" src=" {% static 'jquery/month_picker/MonthPicker.js' %}"></script>
+<script type="text/javascript" src="{% static 'pointage/js/synthese_mensuelle.js'%}"></script>
+
+{% endblock %}

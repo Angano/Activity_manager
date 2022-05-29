@@ -1,0 +1,88 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+
+{% block content %}
+
+<div class="row ">
+    <div class="col-md-12 mx-auto ">
+       <legend>Liste des brouillons</legend>
+    </div>
+</div>
+ {% if brouillons %}
+<div class="row">
+    <div class="col-md-10 mx-auto">
+
+        <table class="table" id="table">
+            <form action="" method="post">
+                <thead>
+                    <tr><th>num pièce</th><th>Date pièce</th><th>Client</th><th>Montant Total</th><th><small>Transférer les brouilons</small></th></tr>
+                </thead>
+                <tbody>
+                    {% csrf_token%}
+                    {% for objet in brouillons%}
+                        <tr>
+                            <td>
+                                <a  class="badge bg-secondary detail-piece" href="{% url 'comptabilite:brouillon_detail' pk=objet.pk%}" data-bs-toggle="modal" data-bs-target="#exampleModal">Br_{{ objet.num_piece }}</a>
+
+                            </td>
+                            <td> {{objet.date_brouillon}}</td><td>{{objet.client.nom}}</td><td>{{objet.total|floatformat:2}} €
+                            </td>
+                            <td><small><input
+                                type="checkbox" name="brouillons" value='{{objet.pk}}'></small>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot><tr>
+                    <th colspan="4"></th>
+                    <th><small><input class="btn btn-warning btn-sm" type="submit" value="Transférer"></small></th></tr>
+                </tfoot>
+            </form>
+        </table>
+    </div>
+</div>
+<!-- Button trigger modal -->
+
+
+<!-- Modal -->
+
+<div class="modal fade" id="exampleModal" tabindex="2" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+          <div id="titreHeader" class="w-75"></div>
+        <button type="button" class="btn-close buttonClose" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id="modal-body">
+        ...
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+    {% else %}
+        <div class="row">
+                <h5>Aucun brouillons à valider pour le moments</h5>
+        </div>
+
+
+
+        {% endif %}
+
+
+ {% endblock %}
+
+{% block script %}
+<script src="{% static 'comptabilite/js.js' %}"></script>
+
+
+{% endblock %}
+

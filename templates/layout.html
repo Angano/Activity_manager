@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="fr">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}" type="text/css">
+    <link href="{% static 'css/main.css'%}" type="text/css" rel="stylesheet">
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <title>Services Manager</title>
+    {% block css %}
+    {% endblock %}
+</head>
+
+<body>
+<main class="container-fluid">
+    <div class="row mb-2" id="header">
+        <div class="col-md-4 px-0 me-5" id="logo">
+
+        </div>
+        <div class="col-md-6">
+            <div class="fs-5">
+                <b>Services Manager</b>
+                <div style="font-size:1rem"> La gesion des services scolaires simplifiée !</div>
+            </div>
+        </div>
+
+
+        <div class="col-md-2 ms-auto mr-0">
+            <nav class="navbar navbar-expand-md justify-content-end">
+                <ul class="navbar nav ">
+                    <li class="nav-item">
+                        <a class="nav-link {% if 'profil' in request.get_full_path %} active {% endif %}" href="{% url 'user:editprofil' %}">{{user}}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/logout" class="alert alert-primary px-2  py-1 m-1 text-decoration-none">logout</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    </div>
+    <div class="row" id="nav1">
+        <div class="col-md-2 bg bg-light py-2 " id="contenu">
+            <nav class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                <div class="navbar navbar-expand-md navbar-light bg-light">
+                    <button class="navbar-toggler bg-secondary text-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                      <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div  class="navbar-collapse collapse" id="navbarSupportedContent">
+                        <ul class="menu menu-collapse" id="navbarText">
+
+                {% if "Agent" in request.user.profil.user_connected_roles %}
+                    <li class="menu-item">
+                        <a class="nav-link {% if '/pointage/' in request.path  %}   active {% else %}bg-secondary {% endif %}" id="v-pills-pointage-tab"  href="{% url 'pointage:pointage' %}" role="tab" aria-controls="v-pills-pointage" aria-selected="false">Pointage</a>
+                    </li>
+                {% endif %}
+                {% if "Admin" in request.user.profil.user_connected_roles%}
+
+                    <li class="menu-item">
+                        <span class=" nav-link {% if '/user/' in request.path  %}  active {% else %}bg-secondary  {% endif %}" >Utilisateurs</span>
+                        <ul class="menu-items {% if '/user/' in request.path  %}   show {% endif %} ">
+                            <!-- Dropdown menu links -->
+
+                            <li>
+                                <a class="dropdown-item " href="{% url 'user:listuser' %}">Liste des utilisateurs</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item " href="/user/" tabindex="-1" aria-disabled="false">Ajouter un utilisateur</a>
+                            </li>
+                            <li>
+                                <hr>
+                            </li>
+                            <li>
+                                <a class="dropdown-item " href="/user/roles/" >listes des roles</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item " href="{% url 'user:add_role' %}" >Ajout rôle</a>
+                            </li>
+
+
+                        </ul>
+                    </li>
+                    </li>
+                            {% endif %}
+                            {% if "Directeur" in request.user.profil.user_connected_roles%}
+
+                    <li class="menu-item">
+                        <span class="nav-link {% if '/famille/' in request.path  %}   active {% else %}bg-secondary  {% endif %}" >Familles</span>
+                        <ul class="menu-items {% if '/famille/' in request.path  %}   show {% endif %}">
+                            <!-- Dropdown menu links -->
+                            <li><a class="dropdown-item " href="{% url 'famille:parents'%}" >Parents</a></li>
+                            <li><a class="dropdown-item " href="{% url 'famille:parent' %}">Ajouter un Parent</a></li>
+                            <li>
+                                <hr>
+                            </li>
+                            <li><a class="dropdown-item " href="{% url 'famille:enfants'%}" >Elèves</a></li>
+                            <li><a class="dropdown-item " href="{% url 'famille:enfant' %}">Ajouter un Elève</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item"><span class="nav-link {% if '/activite/' in request.path  %}   active {% else %}bg-secondary {% endif %}" >Activités</span>
+                        <ul class="menu-items {% if '/activite/' in request.path  %}   show {% endif %}">
+                            <!-- Dropdown menu links -->
+                            <li class=""><a class="dropdown-item " href="{% url 'activite:list_activites' %}">Liste des activités</a></li>
+                            <li class=""><a class="dropdown-item " href="{% url 'activite:addactivite' %}">Ajouter une activité</a></li>
+
+                        </ul>
+                    </li>
+                    {% endif %}
+                    {% if "Tresorier" in request.user.profil.user_connected_roles%}
+                        <li class="menu-item">
+                        <span class=" nav-link {% if '/comptabilite/' in request.path  %}  active {% else %}bg-secondary {% endif %}" >Comptabilité</span>
+                        <ul class="menu-items {% if '/comptabilite/' in request.path  %}   show {% endif %}">
+                            <!-- Dropdown menu links -->
+                            <li class="nav-item  ">
+                                <a class=" {% if request.path == '/comptabilite/'%} active {% else %} dropdown-item {% endif %}" href="{% url 'comptabilite:comptabilite' %}">Synthèse</a>
+                            </li>
+                            <li><hr></li>
+                            <li><a class=" {% if request.path == '/comptabilite/validation_pointage/'%} active {% else %} dropdown-item {% endif %}" href="{% url 'comptabilite:validation_pointage' %}">Validation Pointage</a></li>
+                            <li><a class=" {% if request.path == '/comptabilite/brouillons/'%} active {% else %} dropdown-item {% endif %}" href="{% url 'comptabilite:brouillons' %}" >Liste brouillons</a></li>
+                            <li><a class=" {% if request.path == '/comptabilite/addbrouillonNew/'%} active {% else %} dropdown-item {% endif %}" href="{% url 'comptabilite:addbrouillonNew' %}">Ajouter un brouillon</a></li>
+                            <li><hr></li>
+                             <li><a class=" {% if request.path == '/comptabilite/factures/'%} active {% else %} dropdown-item {% endif %}" href="{% url 'comptabilite:factures'%}">Liste factures</a></li>
+
+                        </ul>
+                        </li>
+                    {% endif %}
+                </ul>
+                    </div>
+                </div>
+
+            </nav>
+        </div>
+        <div class="col-md-9 mx-auto">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+    <div class="row" id="footer">
+        <div class="col-12 text-center" id="foot">
+           Qui sommes nous? Nous contacter
+        </div>
+    </div>
+</main>
+
+
+<script src="{% static 'jquery/jquery-3.5.1.min.js' %}" ></script>
+<script src="{% static 'jquery/jquery-1.12.4.js' %}"></script>
+<script src="{% static 'jquery/jquery-ui.js' %}"></script>
+
+<script src="{% static 'bootstrap/js/bootstrap.bundle.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/js.js' %} "></script>
+{% block script %}
+{% endblock %}
+
+</body>
+
+</html>

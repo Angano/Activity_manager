@@ -1,0 +1,78 @@
+{% extends 'layout.html' %}
+{% block content %}
+{% load static %}
+
+<div class="row">
+    <div class="col-md-12 mx-auto alert alert-secondary ">
+        <h3>Listes des factures</h3>
+    </div>
+</div>
+<div class="row">
+
+        <div class="col-md-10 mx-auto d-flex flex-row card-footer">
+            <div class="input-group" id="affichage_detail" data-etat="all">
+                <button class="btn btn-primary btn-sm m-1 " id="solded">Factures payées</button>
+                <button class="btn btn-primary btn-sm m-1" id="no_solded">Factues impayées</button>
+                <button class="btn btn-success btn-sm m-1" id="all">Toutes</button>
+            </div>
+
+
+        </div>
+
+
+</div>
+
+
+<div class="row my-3">
+    <div class="col-md-10 mx-auto">
+        <table class="table" id="table">
+            <thead>
+                <tr><th>num pièce</th><th>Date pièce</th><th>Client</th><th>Montant Total</th><th>Soldée</th><th>Note</th><th>Date Paiement</th></tr>
+            </thead>
+            <tbody id="tbody">
+                {% for objet in object_list%}
+                    <tr>
+                        <td class="toto">
+                            <a data-bs-toggle="modal" data-bs-target="#exampleModal" class="badge bg-primary" href="{% url 'comptabilite:facture_detail' pk=objet.pk%}">
+                                Fc_{{ objet.num_piece }}
+                            </a>
+
+                        </td>
+                        <td class="toto"> {{objet.date_facture}}</td>
+                        <td>{{objet.client.nom}}</td>
+                        <td class="toto">{{objet.total|floatformat:2}} €</td>
+                        <td class="text-center">{% if objet.solder %}&#9989;{% endif %}</td>
+                        <td>{{objet.note}}</td>
+                        <td>{% if objet.date_solde and objet.solder %} {{objet.date_solde}}{% endif %}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="row">
+    <!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">fermer</button>
+
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+ {% endblock %}
+{% block script %}
+<script src="{% static 'comptabilite/js.js' %}"></script>
+{% endblock %}

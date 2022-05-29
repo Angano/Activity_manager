@@ -1,0 +1,143 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block content %}
+    {% if True %}
+<form method="POST" action="">
+    {% csrf_token %}
+<div class="row">
+    <div class="col-md-12 mx-auto py-2">
+        <div class="card">
+            <div class="card-header d-flex flex-row justify-content-between" >
+                <div class="h5 card-title" >Validation des pointages</div>
+                <div class="d-flex w-50">
+                    <div class="input-group mb-3">
+                        <label class="input-group-text" for="date_debut">Du</label>
+                        <input style="width:120px" name="date_debut" class="datepick form-control" type="text" id="date_debut" value="{{date.0}}">
+                    </div>
+                    <div class="input-group mb-3">
+                        <label class="input-group-text" for="date_fin">au</label>
+                        <input style="width:120px" name="date_fin" class="datepick form-control" type="text" id="date_fin" value="{{date.1}}">
+                    </div>
+                </div>
+
+            </div>
+            <div class="py-2" id="resultat">
+                <span id="table">
+                  <table class="table"  >
+                    <thead>
+                    <tr>
+                        <th>Activité</th>
+                        <th>Quantité</th>
+                        <th>Montant</th>
+                        <th>Détail</th></tr>
+                    </thead>
+                    <tbody>
+                    {% for categorie in pointages %}
+                        <tr>
+                            <td>
+                                <input type="checkbox" id="{{categorie.pk}}" name="ligne" value="{{categorie.pk}}">
+                                <label for="{{categorie.pk}}">{{categorie.nom}}</label>
+                            </td>
+                            <td><span class="quantite_total" id="{{categorie.pk}}_quantite_total"></span></td>
+                            <td><span class="montant_total" id="{{categorie.pk}}_montant_total"></span></td>
+                            <td><span class="btn btn-primary btn-sm categorie" id="{{categorie.pk}}_activite" data-bs-toggle="modal" data-bs-target="#exampleModal">Détail</span></td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>Total</th>
+                            <th></th>
+                            <th><span id="montant_total"></span></th>
+                            <th></th>
+                        </tr>
+                    </tfoot>
+                </table>
+                <div class="d-flex justify-content-end mt-5 me-5">
+                    <div class="me-3">
+                        <input id="confirm" class="form-check-input" type="checkbox" name="validation" value='1'>
+                        <label for="confirm">Confirmez la validation des pointages</label>
+                    </div>
+                    <input id="valide" class="btn btn-success" type="submit" disabled value="Valider">
+
+                </div>
+
+                </span>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row d-none" id="resultat2">
+    <span id="resultat3">
+        {% for key,value in pointages.items %}
+            <div class="col" id="{{key.pk}}_activite_total">
+          <div class="d-flex justify-content-between">
+        <div><b>{{key.nom }}</b></div>
+
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+        <table class="table" >
+            <thead>
+                <tr>
+                    <th></th>
+                    <td></td></tr>
+            </thead>
+            <tbody>
+            {% for enfant,val in value.0.items%}
+            <tr>
+                <td>{{enfant.nom}} {{enfant.prenom}} </td>
+                <td>{{val}}</td>
+            </tr>
+            {%endfor%}
+
+            </tbody>
+            <tfoot>
+            <tr><th>Nbre pointages</th><th><span class="quantite" id="{{key.pk}}_quantite">{{value.1}}</span></th></tr>
+            <tr><th>Montant total</th><th><span class="montant" id="{{key.pk}}_montant">{{value.2|floatformat:2}} <b>€</b></span></th></tr>
+            </tfoot>
+
+        </table>
+
+          </div>
+        {% endfor %}
+    </span>
+
+</div>
+</form>
+
+
+<!-- Modal -->
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+  <div class="modal-dialog" style="max-width:450px">
+    <div class="modal-content">
+
+      <div class="modal-body" id="modal-body">
+        ...
+      </div>
+      <div class="d-flex justify-content-end me-4 mb-4">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% else %}
+<div class="row">
+    <div class="col-md-12">
+        nothing
+    </div>
+</div>
+
+{% endif %}
+
+{% endblock %}
+
+{% block script%}
+<script type="text/javascript" src="{% static 'comptabilite/js.js' %}"></script>
+{% endblock %}

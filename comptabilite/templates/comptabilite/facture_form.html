@@ -1,0 +1,14 @@
+{% extends 'layout.html' %}
+
+{% block nav %}
+{% include 'comptabilite/_facturation.html' %}
+{% endblock %}
+{% block content %}
+
+<div class="row">
+    <div class="col-md-10 mx-auto">
+        {{form}}
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'layout.html' %}
+{% block nav %}
+{% include 'activite/_activite.html' %}
+{% endblock %}
+{% block content %}
+
+<div class="row ">
+    <div class="col-md-12 mx-auto alert alert-secondary">
+       <h3>Listes des activités</h3>
+    </div>
+    <div class="col-md-12">
+        <table class="table">
+                <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Description</th>
+                        <th>Edition</th>
+                        <th>Relevé mensuel</th>
+                        <th>Suppression</th>
+                        <th>Nombre inscrit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for data in object_list %}
+                    <tr>
+                        <td>{{data.nom}}</td>
+                        <td>{{data.description}}</td>
+                        <td class="text-center"><a href="{%url 'activite:edit_activite' pk=data.pk%}">&#128394;</a></td>
+                        <td class="text-center"><a href="{% url 'pointage:synthese_mensuelle' pk=data.pk %}">&#x1F5D3;</a></td>
+                        <td class="text-center"><a href="{% url 'activite:delete_activite' pk=data.pk %}">&#x274C;</a></td>
+                        <td class="text-center">{{ data.composition.count}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+    </div>
+</div>
+
+
+{% endblock %}

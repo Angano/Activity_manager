@@ -1,0 +1,45 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<div class="row mt-2 mx-0">
+    <div class="col-md-6 mx-auto">
+        <div class="card" style="width: 28rem;">
+            <div class="card-header"><h2>Mon profil</h2></div>
+          <div class="card-body">
+
+              <p class="card-text"> <b>Pseudo:</b> {{user.username}}</p>
+              <p class="card-text"> <b>Prénom:</b> {{user.first_name}}</p>
+              <p class="card-text"> <b>Nom:</b> {{user.last_name}}</p>
+              <p class="card-text"> <b>Email:</b> {{user.email}}</p>
+
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#profil-modal">Mettre à jour</button>
+
+          </div>
+          <div class="card-footer"><a href="/changepassword/" >changement mot de passe</a></div>
+        </div>
+    </div>
+</div>
+<div class="modal" tabindex="-1" id="profil-modal" >
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="" method="post">
+                <div class="modal-header">
+                    <h4>Modification de mon profil</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    {% csrf_token %}
+                    {{userform.as_p}}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+
+                    <button type="submit" class="btn btn-primary">Enregistrer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

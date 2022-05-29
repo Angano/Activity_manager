@@ -1,0 +1,17 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        <form action="" method="post">
+            {% csrf_token %}
+                {{form}}
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+            <input type="submit">
+        </form>
+
+    </div>
+</div>
+{% endblock %}

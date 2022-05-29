@@ -1,0 +1,104 @@
+.table td{
+    padding:5px;
+}
+
+
+td[data-article='prix'], td[data-article='quantite']{
+    cursor: pointer;
+    width:5rem;
+}
+
+.majBrouillon{
+    box-shadow: 10px 5px 5px grey;
+}
+
+
+
+#addNom{
+	position: absolute;
+	z-index: 2;
+	bottom: 43px;
+	background-color: #eaeaea;
+	width:100%;
+
+}
+
+#tdAddNom{
+    position:relative;
+    z-index:0;
+}
+
+
+#addPrix, #addQuantite, #totalLigne{
+    width:5rem;
+}
+.modal-dialog{
+    max-width:1000px;
+}
+#ajouter{
+    cursor: pointer;
+}
+
+// bouton clear
+#btnHideline{
+    display:none;
+
+}
+tbody{
+min-height:5vh;
+}
+
+#myul {
+
+	position: absolute;
+	width: 16rem;
+	left: -1rem;
+	cursor: pointer;
+}
+
+/* input total */
+#id_total{
+    -webkit-appearance: textfield;
+    -moz-appearance: textfield;
+    appearance: textfield;
+
+    margin: 0;
+}
+.table{
+    margin-bottom:0px;
+}
+
+#btnHideLine{
+    position:relative;
+    z-index:-1;
+}
+#btnAddLine{
+    position:relative;
+}
+
+thead tr th{
+    padding-bottom:0.5rem;
+}
+
+#resultatParent{
+    z-index:1;
+}
+
+/* Ajout brouillon: affichage du tableau si présence d'activité */
+.draft{
+    display:none;
+}
+
+/* icon pour effacer un champ */
+.erase{
+    cursor: pointer;
+}
+
+/* affichage resultat recherche activite et parent */
+#resultatNom{
+    top:2.5rem;
+    position:relative;
+}
+#resultatParent{
+    position:absolute;
+}

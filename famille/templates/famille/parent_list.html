@@ -1,0 +1,59 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block content %}
+<div class="row ">
+    <div class="col-md-12 mx-auto alert alert-secondary ">
+       <h3>Liste des parents</h3>
+    </div>
+</div>
+<div class="row m-0 py-3" id="parent">
+        <table class="table table-striped table-bordered">
+            <thead>
+            <tr>
+                <th scope="col">Nom</th>
+                <th scope="col">Prénom</th>
+                <th scope="col">Téléphone</th>
+                <th scope="col">Email</th>
+                <th scope="col">Adresse</th>
+                <th scope="col">Code postal</th>
+                <th scope="col">Ville</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for parent in object_list %}
+                <tr>
+                    <td><a href="{% url 'famille:edit_parent' pk=parent.pk%}" data-bs-toggle="modal" data-bs-target="#exampleModal">{{ parent.nom}}</a></td>
+                    <td>{{ parent.prenom}}</td>
+                    <td>{{ parent.telephone}}</td>
+                    <td>{{ parent.email}}</td>
+                    <td>{{ parent.adresse}}</td>
+                    <td>{{ parent.code_postal}}</td>
+                    <td>{{ parent.ville}}</td></tr>
+            {% endfor %}
+
+
+
+            </tbody>
+
+        </table>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content" style="width:750px">
+      <div class="modal-header bg-light">
+        <h5 class="modal-title" id="exampleModalLabel">Edition d'un parent</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body " id="modal-parent">
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+{% block script %}
+    <script src="{% static 'famille/js.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-6 mx-auto">
+        <form action="" method="post">
+                {%csrf_token%}
+                {{form.as_p}}
+                {{userform.as_p }}
+                <input type="submit">
+            </form>
+
+    </div>
+</div>
+
+<div class="row">
+
+    <div class="col-md-6 mx-auto">
+        {% for profil in profils %}
+        {{profil.user.username}}  {{profil.user.first_name}}  {{profil.user.last_name}}  {{profil.role}}  {{profil.info}}
+
+        <br>
+        {% endfor %}
+    </div>
+</div>
+
+{% if tests %}
+
+    <div class="col-md-6">
+        {% for test in tests %}
+        {{test.nom}} {{test.prenom}} {{test.user.username}} {{test.user.email}}
+        <br>
+        {% endfor %}
+    </div>
+
+
+
+{% endif %}
+
+
+{% endblock %}
